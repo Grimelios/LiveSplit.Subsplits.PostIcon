@@ -217,7 +217,6 @@ namespace LiveSplit.UI.Components
             btnAfterTimesColor.DataBindings.Add("BackColor", this, "AfterTimesColor", false, DataSourceUpdateMode.OnPropertyChanged);
             chkDisplayIcons.DataBindings.Add("Checked", this, "DisplayIcons", false, DataSourceUpdateMode.OnPropertyChanged);
             chkIconShadows.DataBindings.Add("Checked", this, "IconShadows", false, DataSourceUpdateMode.OnPropertyChanged);
-            chkIndentBlankIcons.DataBindings.Add("Checked", this, "IndentBlankIcons", false, DataSourceUpdateMode.OnPropertyChanged);
             chkThinSeparators.DataBindings.Add("Checked", this, "ShowThinSeparators", false, DataSourceUpdateMode.OnPropertyChanged);
             chkLastSplit.DataBindings.Add("Checked", this, "AlwaysShowLastSplit", false, DataSourceUpdateMode.OnPropertyChanged);
             chkOverrideTextColor.DataBindings.Add("Checked", this, "OverrideTextColor", false, DataSourceUpdateMode.OnPropertyChanged);
@@ -250,8 +249,7 @@ namespace LiveSplit.UI.Components
             chkSectionTimer.DataBindings.Add("Checked", this, "SectionTimer", false, DataSourceUpdateMode.OnPropertyChanged);
             btnSectionTimerColor.DataBindings.Add("BackColor", this, "SectionTimerColor", false, DataSourceUpdateMode.OnPropertyChanged);
             chkSectionTimerGradient.DataBindings.Add("Checked", this, "SectionTimerGradient", false, DataSourceUpdateMode.OnPropertyChanged);
-
-            trkIconSize.DataBindings.Add("Value", this, "IconSize", false, DataSourceUpdateMode.OnPropertyChanged);
+			
             cmbSplitGradient.DataBindings.Add("SelectedItem", this, "SplitGradientString", false, DataSourceUpdateMode.OnPropertyChanged);
             cmbHeaderComparison.DataBindings.Add("SelectedItem", this, "HeaderComparison", false, DataSourceUpdateMode.OnPropertyChanged);
             cmbHeaderTimingMethod.DataBindings.Add("SelectedItem", this, "HeaderTimingMethod", false, DataSourceUpdateMode.OnPropertyChanged);
@@ -269,11 +267,6 @@ namespace LiveSplit.UI.Components
         void chkColumnLabels_CheckedChanged(object sender, EventArgs e)
         {
             btnLabelColor.Enabled = chkColumnLabels.Checked;
-        }
-
-        void chkDisplayIcons_CheckedChanged(object sender, EventArgs e)
-        {
-            trkIconSize.Enabled = label5.Enabled = chkIconShadows.Enabled = chkDisplayIcons.Checked;
         }
 
         void chkIndentBlankIcons_CheckedChanged(object sender, EventArgs e)
@@ -427,7 +420,6 @@ namespace LiveSplit.UI.Components
             chkShowHeader_CheckedChanged(null, null);
             chkOverrideHeaderColor_CheckedChanged(null, null);
             chkSectionTimer_CheckedChanged(null, null);
-            chkDisplayIcons_CheckedChanged(null, null);
             chkColumnLabels_CheckedChanged(null, null);
 
             cmbHeaderComparison.Items.Clear();

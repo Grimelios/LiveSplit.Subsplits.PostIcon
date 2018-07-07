@@ -5,9 +5,9 @@ namespace LiveSplit.UI.Components
 {
     public class SplitsComponentFactory : IComponentFactory
     {
-        public string ComponentName => "Subsplits";
+        public string ComponentName => "Subsplits (Post-Icon)";
 
-        public string Description => "Displays a list of split times and deltas in relation to a comparison. Only shows subsplits when relevant";
+        public string Description => "Displays a list of split times and deltas in relation to a comparison. Only shows subsplits when relevant. Modified to display icons after split names rather than before (assuming an icon is set).";
 
         public ComponentCategory Category => ComponentCategory.List;
 
@@ -19,6 +19,6 @@ namespace LiveSplit.UI.Components
 
         public string UpdateURL => "http://livesplit.org/update/";
 
-        public Version Version => Version.Parse("1.7.5");
+        public Version Version => Version.Parse("1.7.6");
     }
 }

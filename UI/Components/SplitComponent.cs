@@ -234,7 +234,50 @@ namespace LiveSplit.UI.Components
                     g.DrawRectangle(highlightPen, 0, 0, width - 1, height - 1);
                 }
 
-                var icon = Split.Icon;
+	            NameLabel.Font = state.LayoutSettings.TextFont;
+	            NameLabel.HasShadow = state.LayoutSettings.DropShadows;
+
+	            if (ColumnsList.Count() == LabelsList.Count)
+	            {
+		            var curX = width - 7;
+		            var nameX = width - 7;
+		            foreach (var label in LabelsList.Reverse())
+		            {
+			            var column = ColumnsList.ElementAt(LabelsList.IndexOf(label));
+
+			            var labelWidth = 0f;
+			            if (column.Type == ColumnType.DeltaorSplitTime || column.Type == ColumnType.SegmentDeltaorSegmentTime)
+				            labelWidth = Math.Max(MeasureDeltaLabel.ActualWidth, MeasureTimeLabel.ActualWidth);
+			            else if (column.Type == ColumnType.Delta || column.Type == ColumnType.SegmentDelta)
+				            labelWidth = MeasureDeltaLabel.ActualWidth;
+			            else
+				            labelWidth = MeasureTimeLabel.ActualWidth;
+			            label.Width = labelWidth + 20;
+			            curX -= labelWidth + 5;
+			            label.X = curX - 15;
+
+			            label.Font = state.LayoutSettings.TimesFont;
+			            label.HasShadow = state.LayoutSettings.DropShadows;
+			            label.IsMonospaced = true;
+			            label.Draw(g);
+
+			            if (!string.IsNullOrEmpty(label.Text))
+				            nameX = curX + labelWidth + 5 - label.ActualWidth;
+		            }
+
+		            NameLabel.Width = (mode == LayoutMode.Horizontal ? width - 10 : nameX) - IconWidth;
+		            NameLabel.X = 5;
+		            if (Indent)
+		            {
+			            NameLabel.Width -= 20;
+			            NameLabel.X += 20;
+		            }
+
+		            NameLabel.Draw(g);
+	            }
+
+				var icon = Split.Icon;
+
                 if (DisplayIcon && icon != null)
                 {
                     var shadow = ShadowImage;
@@ -246,84 +289,29 @@ namespace LiveSplit.UI.Components
                         OldImage = icon;
                     }
 
-                    var drawWidth = Settings.IconSize;
-                    var drawHeight = Settings.IconSize;
-                    var shadowWidth = Settings.IconSize * (5 / 4f);
-                    var shadowHeight = Settings.IconSize * (5 / 4f);
-                    if (icon.Width > icon.Height)
-                    {
-                        var ratio = icon.Height / (float)icon.Width;
-                        drawHeight *= ratio;
-                        shadowHeight *= ratio;
-                    }
-                    else
-                    {
-                        var ratio = icon.Width / (float)icon.Height;
-                        drawWidth *= ratio;
-                        shadowWidth *= ratio;
-                    }
+	                var shadowFactor = 20f / 17;
+					var shadowWidth = icon.Width * shadowFactor;
+                    var shadowHeight = icon.Height * shadowFactor;
 
                     ImageAnimator.UpdateFrames(shadow);
                     if (Settings.IconShadows && shadow != null)
                     {
                         g.DrawImage(
                             shadow,
-                            7 + (Settings.IconSize * (5 / 4f) - shadowWidth) / 2 - 0.7f + (Indent ? 20 : 0),
-                            (height - Settings.IconSize) / 2.0f + (Settings.IconSize * (5 / 4f) - shadowHeight) / 2 - 0.7f,
+                            8 + (Indent ? 20 : 0) + NameLabel.ActualWidth,
+                            (height - Settings.IconSize) / 2.0f + (Settings.IconSize * shadowFactor - shadowHeight) / 2 - 0.7f,
                             shadowWidth,
                             shadowHeight);
                     }
 
                     ImageAnimator.UpdateFrames(icon);
 
-                    g.DrawImage(
+	                g.DrawImage(
                         icon,
-                        7 + (Settings.IconSize - drawWidth) / 2 + (Indent ? 20 : 0),
-                        (height - Settings.IconSize) / 2.0f + (Settings.IconSize - drawHeight) / 2,
-                        drawWidth,
-                        drawHeight);
-                }
-
-                NameLabel.Font = state.LayoutSettings.TextFont;
-                NameLabel.HasShadow = state.LayoutSettings.DropShadows;
-
-                if (ColumnsList.Count() == LabelsList.Count)
-                {
-                    var curX = width - 7;
-                    var nameX = width - 7;
-                    foreach (var label in LabelsList.Reverse())
-                    {
-                        var column = ColumnsList.ElementAt(LabelsList.IndexOf(label));
-
-                        var labelWidth = 0f;
-                        if (column.Type == ColumnType.DeltaorSplitTime || column.Type == ColumnType.SegmentDeltaorSegmentTime)
-                            labelWidth = Math.Max(MeasureDeltaLabel.ActualWidth, MeasureTimeLabel.ActualWidth);
-                        else if (column.Type == ColumnType.Delta || column.Type == ColumnType.SegmentDelta)
-                            labelWidth = MeasureDeltaLabel.ActualWidth;
-                        else
-                            labelWidth = MeasureTimeLabel.ActualWidth;
-                        label.Width = labelWidth + 20;
-                        curX -= labelWidth + 5;
-                        label.X = curX - 15;
-
-                        label.Font = state.LayoutSettings.TimesFont;
-                        label.HasShadow = state.LayoutSettings.DropShadows;
-                        label.IsMonospaced = true;
-                        label.Draw(g);
-
-                        if (!string.IsNullOrEmpty(label.Text))
-                            nameX = curX + labelWidth + 5 - label.ActualWidth;
-                    }
-
-                    NameLabel.Width = (mode == LayoutMode.Horizontal ? width - 10 : nameX) - IconWidth;
-                    NameLabel.X = 5 + IconWidth;
-                    if (Indent)
-                    {
-                        NameLabel.Width -= 20;
-                        NameLabel.X += 20;
-                    }
-
-                    NameLabel.Draw(g);
+                        8 + (Indent ? 20 : 0) + NameLabel.ActualWidth,
+                        (height - Settings.IconSize) / 2.0f + (Settings.IconSize - icon.Height) / 2,
+                        icon.Width,
+                        icon.Height);
                 }
             }
         }

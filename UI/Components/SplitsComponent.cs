@@ -43,8 +43,7 @@ namespace LiveSplit.UI.Components
 
         protected IEnumerable<ColumnData> ColumnsList { get { return Settings.ColumnsList.Select(x => x.Data); } }
 
-        public string ComponentName
-          => "Subsplits";
+        public string ComponentName => "Subsplits (Post-Icon)";
 
         public float VerticalHeight => InternalComponent.VerticalHeight;
 
