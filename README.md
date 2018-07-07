@@ -5,4 +5,10 @@ This project is a modified version of the Subsplits component for LiveSplit. My 
 - The normal Subsplits component scales each icon based on the largest width of all icons. This version leaves icons unscaled.
 - To complement these changes, the configuration page (within Edit Layout) has the "Indent Blank Icons" checkbox and "Size" slider removed (under the Icons section).
 
+Before:
+![Before](https://i.imgur.com/rKf9LYI.png)
+
+After:
+![After](https://i.imgur.com/C5v9mlR.png)
+
 That's it. Note that I only tested this component using vertically-stacked splits.
