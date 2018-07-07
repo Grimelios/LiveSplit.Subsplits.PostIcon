@@ -1,3 +1,4 @@
+#Post-icon Subsplits for LiveSplit
 This project is a modified version of the Subsplits component for LiveSplit. My motivation was speedrunning Crash Bandicoot 2, where I wanted to display icons for colored gems
 
 Here's the change list:
